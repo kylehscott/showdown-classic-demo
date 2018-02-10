@@ -252,7 +252,7 @@ var updateBases = function() {
         $(bases[i]).popover('hide');
       }
     } else {
-      $(bases[i] + "-img").attr("src", "static/image/card_imgs/_base.jpg");
+      $(bases[i] + "-img").attr("src", "static/image/card_imgs/base.jpg");
       $(bases[i] + "-name").html("<br>");
       $(bases[i] + "-speed").html("<br>");
       $(bases[i]).popover('hide');
