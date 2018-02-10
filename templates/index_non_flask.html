@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/stylesheet.css') }}" rel="stylesheet">
+    <title>Baseball Showdown</title>
+
+<!--    <script type="text/javascript">
+      var awayTeamData = {
+        teamName: "New York Yankees",
+        lineup:[{
+          mlbId: "121811"
+          name: "Chuck Knoblauch",
+          onBase: 9,
+          speed: "A",
+          pos: "2B+1",
+          hand: "R",
+          popUp: "-",
+          strikeOut: "-",
+          groundBall: "1-",
+          flyBall: "2-4",
+          walk: "5-11",
+          single: "12-16",
+          singlePlus: "17-",
+          double: "18-19",
+          triple: "-",
+          homeRun: "20"
+        },
+        {
+          mlbId: "116539"
+          name: "Derek Jeter",
+          onBase: 9,
+          speed: "A",
+          pos: "2B+1",
+          hand: "R",
+          popUp: "-",
+          strikeOut: "-",
+          groundBall: "1-",
+          flyBall: "2-4",
+          walk: "5-11",
+          single: "12-16",
+          singlePlus: "17-",
+          double: "18-19",
+          triple: "-",
+          homeRun: "20"
+        }]
+      };
+    </script>-->
+    </head>
+  <body>
+
+
+    <div class="container-fluid">
+      <table class="table table-sm table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col"></th>
+            <th scope="col">1</th>
+            <th scope="col">2</th>
+            <th scope="col">3</th>
+            <th scope="col">4</th>
+            <th scope="col">5</th>
+            <th scope="col">6</th>
+            <th scope="col">7</th>
+            <th scope="col">8</th>
+            <th scope="col">9</th>
+            <th scope="col"></th>
+            <th scope="col">R</th>
+            <th scope="col">H</th>
+            <th scope="col">E</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">New York Yankees</th>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+            <td id="away-runs">0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <th scope="row">Arizona Diamondbacks</th>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+            <td></td>
+            <td>0</td>
+            <td>0</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <table class="table table-dark">
+            <tbody>
+              <tr id="away-batter-1">
+                <th scope="row">1</th>
+                <td>Chuck Knoblauch</td>
+                <td>LF</td>
+                </a>
+              </tr>
+
+              <tr id="away-batter-2">
+                <th scope="row">2</th>
+                <td>Derek Jeter</td>
+                <td>SS</td>
+              </tr>
+              <tr id="away-batter-3">
+                <th scope="row">3</th>
+                <td>David Justice</td>
+                <td>RF</td>
+              </tr>
+              <tr id="away-batter-4">
+                <th scope="row">4</th>
+                <td>Bernie Williams</td>
+                <td>CF</td>
+              </tr>
+              <tr id="away-batter-5">
+                <th scope="row">5</th>
+                <td>Tino Martinez</td>
+                <td>1B</td>
+              </tr>
+              <tr id="away-batter-6">
+                <th scope="row">6</th>
+                <td>Jorge Posada</td>
+                <td>C</td>
+              </tr>
+              <tr id="away-batter-7">
+                <th scope="row">7</th>
+                <td>Alfonso Soriano</td>
+                <td>2B</td>
+              </tr>
+              <tr id="away-batter-8">
+                <th scope="row">8</th>
+                <td>Scott Brosius</td>
+                <td>3B</td>
+              </tr>
+              <tr id="away-batter-9">
+                <th scope="row">9</th>
+                <td>Mike Mussina</td>
+                <td>P</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-6">
+          <div class="container">
+            <div class="row justify-content-center">
+              <div class="col-2">
+                <div class="card text-center">
+                  <img id="second-base" class="card-img-top" src="http://mlb.mlb.com/mlb/images/players/head_shot/545361.jpg" alt="Card image cap">
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row justify-content-between">
+              <div class="col-2">
+                <div class="card text-center">
+                  <img id="third-base" class="card-img-top" src="http://mlb.mlb.com/mlb/images/players/head_shot/545361.jpg" alt="Card image cap">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="card">
+                  <img class="card-img-top" src="http://mlb.mlb.com/mlb/images/players/head_shot/121811.jpg" alt="Card image cap">
+                </div>
+              </div>
+              <div class="col-2">
+                <div class="card text-center">
+                  <img id="first-base" class="card-img-top" src="http://mlb.mlb.com/mlb/images/players/head_shot/545361.jpg" alt="Card image cap">
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+              <div class="col-2">
+                <div class="card">
+                  <img id="batters-box" class="card-img-top" src="http://mlb.mlb.com/mlb/images/players/head_shot/545361.jpg" alt="Card image cap">
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <button id="roll-button" type="button" class="btn btn-primary">Roll</button>
+        <p id="roll-result">0</p>
+        <p id="outs">Outs: 0</p>
+        <div>
+          <div id="test-box" style="height: 50px; overflow: scroll">Test box</div>
+        </div>
+      </div>
+      <div class="col">
+        <table class="table table-dark">
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Tony Womack</td>
+              <td>SS</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Craig Counsell</td>
+              <td>2B</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Luis Gonzalez</td>
+              <td>LF</td>
+            </tr>
+            <tr>
+              <th scope="row">4</th>
+              <td>Reggie Sanders</td>
+              <td>RF</td>
+            </tr>
+            <tr>
+              <th scope="row">5</th>
+              <td>Steve Finley</td>
+              <td>CF</td>
+            </tr>
+            <tr>
+              <th scope="row">6</th>
+              <td>Matt Williams</td>
+              <td>3B</td>
+            </tr>
+            <tr>
+              <th scope="row">7</th>
+              <td>Matt Grace</td>
+              <td>1B</td>
+            </tr>
+            <tr>
+              <th scope="row">8</th>
+              <td>Damian Miller</td>
+              <td>C</td>
+            </tr>
+            <tr>
+              <th scope="row">9</th>
+              <td>Curt Schilling</td>
+              <td>P</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </div>
+    </div>
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.js') }}"></script>
+
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      var awayTeamData = {
+        teamName: "New York Yankees",
+        lineup:[{
+          mlbId: "117197",
+          name: "Chuck Knoblauch",
+          onBase: 9,
+          speed: "A",
+          pos: "2B+1",
+          hand: "R",
+          popUp: "-",
+          strikeOut: "-",
+          groundBall: "1-",
+          flyBall: "2-4",
+          walk: "5-11",
+          single: "12-16",
+          singlePlus: "17-",
+          double: "18-19",
+          triple: "-",
+          homeRun: "20"
+        },
+        {
+          mlbId: "116539",
+          name: "Derek Jeter",
+          onBase: 10,
+          speed: "A",
+          pos: "SS+1",
+          hand: "R",
+          popUp: "-",
+          strikeOut: "1-",
+          groundBall: "2-3",
+          flyBall: "4-",
+          walk: "5-8",
+          single: "9-16",
+          singlePlus: "17-",
+          double: "18-19",
+          triple: "-",
+          homeRun: "20"
+        },
+        {
+          mlbId: "116798",
+          name: "David Justice",
+          onBase: 9,
+          speed: "B",
+          pos: "LF-RF+1",
+          hand: "L",
+          popUp: "-",
+          strikeOut: "1-",
+          groundBall: "2-3",
+          flyBall: "4-",
+          walk: "5-10",
+          single: "11-14",
+          singlePlus: "-",
+          double: "15-16",
+          triple: "-",
+          homeRun: "17-20"
+        },
+        {
+          mlbId: "124288",
+          name: "Bernie Williams",
+          onBase: 9,
+          speed: "B",
+          pos: "OF+1",
+          hand: "S",
+          popUp: "-",
+          strikeOut: "-",
+          groundBall: "1-4",
+          flyBall: "-",
+          walk: "5-8",
+          single: "9-13",
+          singlePlus: "14-",
+          double: "15-16",
+          triple: "17-",
+          homeRun: "18-20"
+        },
+        {
+          mlbId: "118362",
+          name: "Tino Martinez",
+          onBase: 7,
+          speed: "B",
+          pos: "1B+0",
+          hand: "L",
+          popUp: "-",
+          strikeOut: "-",
+          groundBall: "1-2",
+          flyBall: "3-4",
+          walk: "5-7",
+          single: "8-14",
+          singlePlus: "-",
+          double: "15-17",
+          triple: "18-",
+          homeRun: "19-20"
+        },
+        {
+          mlbId: "120691",
+          name: "Jorge Posada",
+          onBase: 10,
+          speed: "C",
+          pos: "C+6",
+          hand: "S",
+          popUp: "-",
+          strikeOut: "1-4",
+          groundBall: "-",
+          flyBall: "-",
+          walk: "5-12",
+          single: "13-16",
+          singlePlus: "-",
+          double: "17-18",
+          triple: "-",
+          homeRun: "19-20"
+        },
+        {
+          mlbId: "150093",
+          name: "Alfonso Soriano",
+          onBase: 6,
+          speed: "A",
+          pos: "2B+2",
+          hand: "R",
+          popUp: "-",
+          strikeOut: "1-4",
+          groundBall: "-",
+          flyBall: "5-",
+          walk: "-",
+          single: "6-12",
+          singlePlus: "13-",
+          double: "14-17",
+          triple: "18-",
+          homeRun: "19-20"
+        },
+        {
+          mlbId: "111515",
+          name: "Scott Brosius",
+          onBase: 6,
+          speed: "C",
+          pos: "3B+3",
+          hand: "R",
+          popUp: "-",
+          strikeOut: "-",
+          groundBall: "1-",
+          flyBall: "2-3",
+          walk: "4-8",
+          single: "9-15",
+          singlePlus: "-",
+          double: "16-17",
+          triple: "-",
+          homeRun: "18-20"
+        },
+        {
+          mlbId: "119608",
+          name: "Mike Mussina",
+          onBase: 9,
+          speed: "B",
+          pos: "LF-RF+1",
+          hand: "L",
+          popUp: "-",
+          strikeOut: "1-",
+          groundBall: "2-3",
+          flyBall: "4-",
+          walk: "5-10",
+          single: "11-14",
+          singlePlus: "-",
+          double: "15-16",
+          triple: "-",
+          homeRun: "17-20"
+        },
+      ]
+      };
+    </script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+
+  </body>
+</html>
