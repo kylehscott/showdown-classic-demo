@@ -563,7 +563,7 @@ $(document).on('click', '.team-select-btn', function(){
 });
 
 var init = function() {
-  $("#team-select-model").modal('show');
+  $("#team-select-modal").modal('show');
   $("#test-box").append("Now batting: " + batter.name + " (OB: " + batter.onBase + ")<br>");
   changeBatter(batter);
   changePitcher(pitcher);
