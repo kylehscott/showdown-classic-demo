@@ -556,9 +556,9 @@ $(document).on('click', '.replace-batter', function(){
 $(document).on('click', '.team-select-btn', function(){
   team = $(this).attr('id').split("-")[0];
   if (team == "away") {
-    userTeam == awayTeam;
+    userTeam = awayTeam;
   } else {
-    userTeam == homeTeam;
+    userTeam = homeTeam;
   }
 });
 
