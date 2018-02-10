@@ -553,8 +553,17 @@ $(document).on('click', '.replace-batter', function(){
   $(this).parent().parent().parent().remove();
 });
 
+$(document).on('click', '.team-select-btn', function(){
+  team = $(this).attr('id').split("-")[0];
+  if (team == "away") {
+    userTeam == awayTeam;
+  } else {
+    userTeam == homeTeam;
+  }
+});
 
 var init = function() {
+  $("#team-select-model").modal('show');
   $("#test-box").append("Now batting: " + batter.name + " (OB: " + batter.onBase + ")<br>");
   changeBatter(batter);
   changePitcher(pitcher);
