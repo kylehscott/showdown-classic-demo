@@ -13,7 +13,7 @@
     <title>Showdown Classic - Demo</title>
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,300,700' rel='stylesheet' type='text/css'>
     </head>
-  <body style="background: url('static/image/background.png'); background-size: 100%;">
+  <body style="background: url('static/image/background.png'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed; background-position: center;">
 
     <br>
     <div class="container-fluid text-center">
@@ -58,8 +58,8 @@
             <td id="away-runs-9">&nbsp;</td>
 
             <td class="away-runs">0</td>
-            <td>0</td>
-            <td>0</td>
+            <td id="away-hits">0</td>
+            <td id="away-lob">0</td>
           </tr>
           <tr>
             <th scope="row">Arizona Diamondbacks</th>
@@ -83,8 +83,8 @@
             <td id="home-runs-9">&nbsp;</td>
 
             <td class="home-runs">0</td>
-            <td>0</td>
-            <td>0</td>
+            <td id="home-hits">0</td>
+            <td id="home-lob">0</td>
         </tbody>
       </table>
     </div>
@@ -99,7 +99,7 @@
               <tr id="away-batter-1">
                 <th scope="row">1</th>
                 <td>Paul O&#39;Neill</td>
-                <td>LF +<span id="home-LF-value">2</span>
+                <td>LF +<span id="away-LF-value">2</span>
                 </td>
                 </a>
               </tr>
@@ -108,7 +108,7 @@
               <tr id="away-batter-2">
                 <th scope="row">2</th>
                 <td>Derek Jeter</td>
-                <td>SS +<span id="home-SS-value">1</span>
+                <td>SS +<span id="away-SS-value">1</span>
                 </td>
                 </a>
               </tr>
@@ -117,7 +117,7 @@
               <tr id="away-batter-3">
                 <th scope="row">3</th>
                 <td>Dave Justice</td>
-                <td>RF +<span id="home-RF-value">1</span>
+                <td>RF +<span id="away-RF-value">1</span>
                 </td>
                 </a>
               </tr>
@@ -126,7 +126,7 @@
               <tr id="away-batter-4">
                 <th scope="row">4</th>
                 <td>Bernie Williams</td>
-                <td>CF +<span id="home-CF-value">1</span>
+                <td>CF +<span id="away-CF-value">1</span>
                 </td>
                 </a>
               </tr>
@@ -135,7 +135,7 @@
               <tr id="away-batter-5">
                 <th scope="row">5</th>
                 <td>Tino Martinez</td>
-                <td>1B +<span id="home-1B-value">0</span>
+                <td>1B +<span id="away-1B-value">0</span>
                 </td>
                 </a>
               </tr>
@@ -144,7 +144,7 @@
               <tr id="away-batter-6">
                 <th scope="row">6</th>
                 <td>Jorge Posada</td>
-                <td>C +<span id="home-C-value">6</span>
+                <td>C +<span id="away-C-value">6</span>
                 </td>
                 </a>
               </tr>
@@ -153,7 +153,7 @@
               <tr id="away-batter-7">
                 <th scope="row">7</th>
                 <td>Alfonso Soriano</td>
-                <td>2B +<span id="home-2B-value">2</span>
+                <td>2B +<span id="away-2B-value">2</span>
                 </td>
                 </a>
               </tr>
@@ -162,7 +162,7 @@
               <tr id="away-batter-8">
                 <th scope="row">8</th>
                 <td>Scott Brosius</td>
-                <td>3B +<span id="home-3B-value">3</span>
+                <td>3B +<span id="away-3B-value">3</span>
                 </td>
                 </a>
               </tr>
@@ -456,7 +456,7 @@
                 <div class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img class="card-img" src="static/image/card_imgs/2001/PR/116.jpg">
                   <small>Mike Stanton</small>
-
+                  <small><button id="away-pitcher-1" class="btn btn-sm btn-primary away-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -464,7 +464,7 @@
                 <div class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img class="card-img" src="static/image/card_imgs/2001/PR/50.jpg">
                   <small>Ramiro Mendoza</small>
-
+                  <small><button id="away-pitcher-2" class="btn btn-sm btn-primary away-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -472,7 +472,7 @@
                 <div class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img class="card-img" src="static/image/card_imgs/2001/1st/293.jpg">
                   <small>Jason Grimsley</small>
-
+                  <small><button id="away-pitcher-3" class="btn btn-sm btn-primary away-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -480,7 +480,7 @@
                 <div class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img class="card-img" src="static/image/card_imgs/2001/1st/304.jpg">
                   <small>Mariano Rivera</small>
-
+                  <small><button id="away-pitcher-4" class="btn btn-sm btn-primary away-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -513,7 +513,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/1st/297.jpg">
                   <small>Chuck Knoblauch</small>
                   <small>OB: 9</small>
-
+                  <small><button id="away-bench-9" class="btn btn-sm btn-primary away-bench replace-batter" style="font-size: 10px;">Pinch Hit</button></small>
                 </div>
               </div>
 
@@ -522,7 +522,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/PR/157.jpg">
                   <small>Luis Sojo</small>
                   <small>OB: 7</small>
-
+                  <small><button id="away-bench-10" class="btn btn-sm btn-primary away-bench replace-batter" style="font-size: 10px;">Pinch Hit</button></small>
                 </div>
               </div>
 
@@ -531,7 +531,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/PR/99.jpg">
                   <small>DAngelo Jiminez</small>
                   <small>OB: 7</small>
-
+                  <small><button id="away-bench-11" class="btn btn-sm btn-primary away-bench replace-batter" style="font-size: 10px;">Pinch Hit</button></small>
                 </div>
               </div>
 
@@ -540,7 +540,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/1st/305.jpg">
                   <small>Jose Vizcaino</small>
                   <small>OB: 7</small>
-
+                  <small><button id="away-bench-12" class="btn btn-sm btn-primary away-bench replace-batter" style="font-size: 10px;">Pinch Hit</button></small>
                 </div>
               </div>
 
@@ -572,7 +572,7 @@
                 <div id="parent-test-2" class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img id="parent-test-3" class="card-img" src="static/image/card_imgs/2001/1st/23.jpg">
                   <small id="parent-test-4">Byung-Hyun Kim</small>
-                  <small><button id="home-pitcher-1" class="btn btn-sm btn-primary replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
+                  <small><button id="home-pitcher-1" class="btn btn-sm btn-primary home-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -580,7 +580,7 @@
                 <div id="parent-test-2" class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img id="parent-test-3" class="card-img" src="static/image/card_imgs/2001/1st/28.jpg">
                   <small id="parent-test-4">Greg Swindell</small>
-                  <small><button id="home-pitcher-2" class="btn btn-sm btn-primary replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
+                  <small><button id="home-pitcher-2" class="btn btn-sm btn-primary home-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -588,7 +588,7 @@
                 <div id="parent-test-2" class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img id="parent-test-3" class="card-img" src="static/image/card_imgs/2001/1st/25.jpg">
                   <small id="parent-test-4">Mike Morgan</small>
-                  <small><button id="home-pitcher-3" class="btn btn-sm btn-primary replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
+                  <small><button id="home-pitcher-3" class="btn btn-sm btn-primary home-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -596,7 +596,7 @@
                 <div id="parent-test-2" class="card bg-dark text-white text-center" style="font-size: 14px;">
                   <img id="parent-test-3" class="card-img" src="static/image/card_imgs/2001/1st/24.jpg">
                   <small id="parent-test-4">Matt Mantei</small>
-                  <small><button id="home-pitcher-4" class="btn btn-sm btn-primary replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
+                  <small><button id="home-pitcher-4" class="btn btn-sm btn-primary home-pitcher replace-pitcher" style="font-size: 10px;">Put In Game</button></small>
                 </div>
               </div>
 
@@ -629,7 +629,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/PR/86.jpg">
                   <small>Erubiel Durazo</small>
                   <small>OB: 9</small>
-                  <small><button id="away-bench-9" class="btn btn-sm btn-primary replace-batter" style="font-size: 10px;" disabled>Pinch Hit</button></small>
+                  <small><button id="home-bench-9" class="btn btn-sm btn-primary home-bench replace-batter" style="font-size: 10px;" disabled>Pinch Hit</button></small>
                 </div>
               </div>
 
@@ -638,7 +638,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/1st/19.jpg">
                   <small>Greg Colbrunn</small>
                   <small>OB: 9</small>
-                  <small><button id="away-bench-10" class="btn btn-sm btn-primary replace-batter" style="font-size: 10px;" disabled>Pinch Hit</button></small>
+                  <small><button id="home-bench-10" class="btn btn-sm btn-primary home-bench replace-batter" style="font-size: 10px;" disabled>Pinch Hit</button></small>
                 </div>
               </div>
 
@@ -647,7 +647,7 @@
                   <img class="card-img" src="static/image/card_imgs/2001/1st/18.jpg">
                   <small>Jay Bell</small>
                   <small>OB: 8</small>
-                  <small><button id="away-bench-11" class="btn btn-sm btn-primary replace-batter" style="font-size: 10px;" disabled>Pinch Hit</button></small>
+                  <small><button id="home-bench-11" class="btn btn-sm btn-primary home-bench replace-batter" style="font-size: 10px;" disabled>Pinch Hit</button></small>
                 </div>
               </div>
 

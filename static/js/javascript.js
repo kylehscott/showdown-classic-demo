@@ -11,6 +11,8 @@ var awayTeam = {
   data: awayTeamData,
   text: "away",
   runs: 0,
+  hits: 0,
+  lob: 0,
   batter: 0,
   batterInfo: awayTeamData.lineup,
   pitcher: awayTeamData.rotation[0],
@@ -22,6 +24,8 @@ var homeTeam = {
   data: homeTeamData,
   text: "home",
   runs: 0,
+  hits: 0,
+  lob: 0,
   batter: 0,
   batterInfo: homeTeamData.lineup,
   pitcher: homeTeamData.rotation[0],
@@ -29,11 +33,19 @@ var homeTeam = {
   currentER: 0
 }
 
-if (userTeam == "away") {
-  userTeam = awayTeam;
-} else {
-  userTeam = homeTeam;
-}
+$(document).on('click', '.team-select-btn', function(){
+  team = $(this).attr('id').split("-")[0];
+  if (team == "away") {
+    userTeam = awayTeam;
+    $("#var-button").text("Bunt");
+    $('.home-pitcher').prop('disabled', true);
+    $('.home-bench').prop('disabled', true);
+  } else {
+    userTeam = homeTeam;
+    $('.away-pitcher').prop('disabled', true);
+    $('.away-bench').prop('disabled', true);
+  }
+});
 
 var currentTeam = awayTeam;
 var currentTeamRuns = currentTeam.runs;
@@ -81,7 +93,6 @@ var infieldDefense = function() {
   } else {
     return Number($("#away-1B-value").text()) + Number($("#away-2B-value").text()) + Number($("#away-SS-value").text()) + Number($("#away-3B-value").text());
   }
-
 };
 
 var changeBatter = function(batter) {
@@ -208,9 +219,11 @@ var checkResult = function (player, roll) {
     }
     return "Walk";
   } else if (roll == player.single.split('-')[0] || roll <= player.single.split('-')[1]) {
+    currentTeam.hits += 1;
     basePosition.unshift(batter);
     return "Single";
   } else if (roll == player.singlePlus.split('-')[0] || roll <= player.singlePlus.split('-')[1]) {
+    currentTeam.hits += 1;
     if (basePosition[0] == null) {
       basePosition.unshift(null, batter);
     } else if (basePosition[0] != null && basePosition[1] != null) {
@@ -221,6 +234,7 @@ var checkResult = function (player, roll) {
     }
     return "Single Plus";
   } else if (roll == player.double.split('-')[0] || roll <= player.double.split('-')[1]) {
+    currentTeam.hits += 1;
     if (outs == 2 && basePosition[0] != null && basePosition[0].speed >= 20){
       basePosition.unshift(null,batter,null);
     } else {
@@ -228,9 +242,11 @@ var checkResult = function (player, roll) {
     }
     return "Double";
   } else if (roll == player.triple.split('-')[0] || roll <= player.triple.split('-')[1]) {
+    currentTeam.hits += 1;
     basePosition.unshift(null,null,batter);
     return "Triple";
   } else if (roll >= player.homeRun.split('+')[0]) {
+    currentTeam.hits += 1;
     basePosition.unshift(null,null,null,batter);
     return "Home Run";
   }
@@ -258,10 +274,21 @@ var updateBases = function() {
       $(bases[i]).popover('hide');
     }
   };
+  if (currentTeam == userTeam && ((basePosition[1] != null && basePosition[2] != null) || (basePosition[0] == null && basePosition[1] == null))) {
+    $('#var-button').prop('disabled', true);
+  } else {
+    $('#var-button').prop('disabled', false);
+  }
 }
 
 var endInning = function() {
   //Switch innings
+  for (i = 0; i < 3; i++) {
+    if (basePosition[i] != null) {
+      currentTeam.lob += 1;
+    }
+  }
+  $("#" + currentTeam.text + "-lob").text(currentTeam.lob);
   outs = 0;
   $("#outs").html('<i class="far fa-circle"></i> <i class="far fa-circle">');
   currentRuns = 0;
@@ -396,7 +423,7 @@ var endPlay = function() {
   } else if (outs == 2) {
     $("#outs").html('<i class="fas fa-circle"></i> <i class="fas fa-circle">');
   }
-
+  $("#" + currentTeam.text + "-hits").text(currentTeam.hits);
 }
 
 $("#roll-button").click(function () {
@@ -425,7 +452,12 @@ $("#roll-button").click(function () {
 $("#var-button").click(function () {
   if ($("#var-button").text() == "Bunt") {
     outs += 1;
-    basePosition.unshift(null);
+    if (basePosition[0] != null && basePosition[1] == null && basePosition[2] != null) {
+      basePosition[1] = basePosition[0];
+      basePosition[0] = null;
+    } else {
+      basePosition.unshift(null);
+    }
     $("#test-box").append("Sac Bunt<br>").animate({scrollTop: $("#test-box").prop("scrollHeight")}, 100);
   } else {
     if (basePosition[0] == null) {
@@ -469,7 +501,9 @@ $("#batter").click(function () {
 
 $(document).on('click', '.steal-button', function(){
   catcherRoll = roll();
+  console.log("#" + defenseTeam.text + "-C-value");
   catcherArm = Number($("#" + defenseTeam.text + "-C-value").text());
+  console.log(catcherArm);
   if ($(this).attr('id') == "steal-first") {
     runner = 0;
     base = "second"
@@ -482,11 +516,11 @@ $(document).on('click', '.steal-button', function(){
     basePosition[runner].speed = 10;
   }
   if (catcherRoll + catcherArm <= basePosition[runner].speed) {
-    result = basePosition[runner].name + " stole " + base;
+    result = basePosition[runner].name + " (SPD: " + basePosition[runner].speed + ") stole " + base + " (Roll: " + catcherRoll + " + " + catcherArm + ")";
     basePosition[runner + 1] = basePosition[runner];
     basePosition[runner] = null;
   } else {
-    result = basePosition[runner].name + " was thrown out attempting to steal " + base;
+    result = basePosition[runner].name + " (SPD: " + basePosition[runner].speed + ") was thrown out attempting to steal " + base + " (Roll: " + catcherRoll + " + " + catcherArm + ")";
     basePosition[runner] = null;
     outs += 1;
   }
@@ -499,6 +533,8 @@ $(document).on('click', '.steal-button', function(){
   } else if (outs == 3) {
     endInning();
   }
+  $("#first-base").popover('hide');
+  $("#second-base").popover('hide');
 });
 
 $(document).on('click', '.replace-pitcher', function(){
@@ -551,15 +587,6 @@ $(document).on('click', '.replace-batter', function(){
   changeBatter(batter);
   $("#" + currentTeam.text + "BenchModal").modal('hide');
   $(this).parent().parent().parent().remove();
-});
-
-$(document).on('click', '.team-select-btn', function(){
-  team = $(this).attr('id').split("-")[0];
-  if (team == "away") {
-    userTeam = awayTeam;
-  } else {
-    userTeam = homeTeam;
-  }
 });
 
 var init = function() {
